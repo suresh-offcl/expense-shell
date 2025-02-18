@@ -3,13 +3,14 @@ log_folder="var/log/shell-script"
 script_name=$( echo $0 | cut -d "." -f1)
 time_stamp=$(date +%Y-%m-%d-%H-%M-%S)
 log_file="$log_folder/$script_name-$time_stamp.log"
-
-G="e/[32m"
-R="e/[31m"
-Y="e/[33m"
-N="e/[0m"
-
 userid=$( id -u )
+
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
+Y="\e[33m"
+
+
 
 check_root () {
     if [ $? -ne 0 ]
