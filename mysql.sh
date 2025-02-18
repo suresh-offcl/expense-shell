@@ -42,7 +42,7 @@ validate $? "enabling mysql-server"
 systemctl start mysqld
 validate $? "starting mnysql-server"
 
-mysql -h mysql.khanishkcosmetics.store -u root -pExpenseApp@1 -e 'show databases;'
+mysql -h mysql.khanishkcosmetics.store -u root -pExpenseApp@1 -e 'show databases;' &>>$log_file
 if [ $? -ne 0 ]
 then
     echo -e "mysql root password was not setup,setting up now"
