@@ -3,6 +3,7 @@ log_folder="var/log/shell-script"
 script_name=$( echo $0 | cut -d "." -f1)
 time_stamp=$(date +%Y-%m-%d-%H-%M-%S)
 log_file="$log_folder/$script_name-$time_stamp.log"
+mkdir -p $log_folder
 userid=$( id -u )
 
 R="\e[31m"
