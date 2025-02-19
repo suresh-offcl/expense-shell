@@ -65,6 +65,24 @@ validate $? "extracting backend file"
 npm install &>>log_folder
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
+systemctl daemon-reload &>>log_folder
+validate $? "reloading the backend service"
+
+systemctl start backend &>>log_folder
+validate $? "starting the backend service"
+
+systemctl enable backend &>>log_folder
+validate $? "enabling the ackend service"
+
+dnf install mysql -y &>>log_folder
+validate $? "installing mysql package to load schema/backend.sql"
+
+mysql -h 172.31.37.132 -uroot -pExpenseApp@1 < /app/schema/backend.sql |tee -a &>>log_folder
+
+systemctl restart backend &>>log_folder
+validate $? "restarting backend"
+
+
 
 
 
