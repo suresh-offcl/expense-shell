@@ -24,9 +24,9 @@ check_root () {
 validate () {
     if [ $? -ne 0 ]
     then 
-        echo -e "$R FAILED $N"
+        echo -e "$R MYSQL PACKAGE INSTALLING FAILED $N"
     else
-        echo -e "$G SUCCESS $N"
+        echo -e "$G MYSQL PACKAGE INSTALLING SUCCESS $N"
     fi 
 }
 
