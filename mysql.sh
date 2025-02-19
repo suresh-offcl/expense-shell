@@ -34,20 +34,20 @@ check_root
 
 echo -e "$G script started at $(date) $N"
 
-dnf install mysql-server -y
+dnf install mysql-server -y &>>log_file
 validate $? "installing mysql-server"
 
-systemctl enable mysqld
+systemctl enable mysqld &>>log_file
 validate $? "enabling mysql-server"
 
-systemctl start mysqld
+systemctl start mysqld &>>log_file
 validate $? "starting mnysql-server"
 
 mysql -h mysql.khanishkcosmetics.store -u root -pExpenseApp@1 -e 'show databases;' &>>$log_file
 if [ $? -ne 0 ]
 then
     echo -e "mysql root password was not setup,setting up now"
-    mysql_secure_installation --set-root-pass ExpenseApp@1
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>log_file
     validate $? "setting up root password"
 else
     echo "password is already setup"
