@@ -32,29 +32,29 @@ validate () {
 
 check_root
 
-dnf install nginx -y
+dnf install nginx -y &>>log_folder
 validate $? "installing nginx"
 
-systemctl enable nginx
+systemctl enable nginx &>>log_folder
 validate $? "enabling nginx"
 
-systemctl start nginx
+systemctl start nginx &>>log_folder
 validate $? "starting nginx"
 
 #removing default webpage
 rm -rf /usr/share/nginx/html/*
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>log_folder
 
-cd /usr/share/nginx/html
+cd /usr/share/nginx/html 
 
-unzip /tmp/frontend.zip 
+unzip /tmp/frontend.zip &>>log_folder
 validate $? "unzip the frontend code"
 
-cp /home/ec2-user/expense-shell/expense.config /etc/nginx/default.d/expense.conf
+cp /home/ec2-user/expense-shell/expense.config /etc/nginx/default.d/expense.conf &>>log_folder
 validate $? "copying expense conf"
 
-systemctl restart nginx 
+systemctl restart nginx &>>log_folder
 validate $? "restarting nginx"
 
 
